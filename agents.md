@@ -6,19 +6,23 @@ NUSGeoguessr is a web-based geography guessing game inspired by Geoguessr, but f
 ## Tech Stack
 - **Frontend Framework**: React 18.2.0
 - **Build Tool**: Create React App (react-scripts 5.0.1)
-- **Styling**: CSS (consider adding CSS Modules or styled-components later)
-- **Maps**: (To be determined - Google Maps API/Mapbox/etc.)
+- **Styling**: CSS
+- **Maps**: Google Maps API (@react-google-maps/api)
 
 ## Project Structure
 ```
 NUSGeoguessr/
 ├── public/           # Static assets (images, favicon, index.html)
 ├── src/
+│   ├── assets/       # Image assets (location images)
 │   ├── components/   # Reusable React components
-│   ├── pages/        # Page-level components
-│   ├── utils/        # Utility functions (distance calculations, etc.)
-│   ├── hooks/        # Custom React hooks
-│   ├── App.js        # Main App component
+│   │   ├── Dashboard.js      # Main dashboard with score and start button
+│   │   ├── Game.js           # Main game component
+│   │   ├── GameMap.js         # Google Maps integration
+│   │   ├── Countdown.js       # 3-second countdown
+│   │   ├── Timer.js           # 20-second game timer
+│   │   └── ScoreHistory.js    # Score history display (upper-right corner)
+│   ├── App.js        # Main App component (manages game state and score)
 │   └── index.js      # Entry point
 ```
 
@@ -35,8 +39,10 @@ NUSGeoguessr/
 - **Coordinates**: NUS locations use specific lat/long coordinates
 - **Game Mechanics**: 
   - Players view panoramic/street view imagery
-  - Guess location on interactive map
-  - Score based on distance from actual location
+  - Guess location on interactive map (Kent Ridge campus only)
+  - Score based on distance from actual location (linear algorithm, max 5000 points)
+  - Score history displayed in upper-right corner during gameplay
+  - Cumulative score tracked on dashboard
 
 ## Common Patterns
 - Use React hooks (`useState`, `useEffect`, `useCallback`, `useMemo`)

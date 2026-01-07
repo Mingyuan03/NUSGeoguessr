@@ -16,7 +16,7 @@ const kentRidgeBounds = {
 
 const libraries = ['places'];
 
-function GameMap({ center, selectedLocation, onMapClick, disabled }) {
+function GameMap({ center, selectedLocation, actualLocation, onMapClick, disabled, showResults }) {
   const mapRef = useRef(null);
 
   // You'll need to add your Google Maps API key here
@@ -88,6 +88,7 @@ function GameMap({ center, selectedLocation, onMapClick, disabled }) {
         cursor: disabled ? 'default' : 'crosshair'
       }}
     >
+      {/* User's guess marker (red arrow) */}
       {selectedLocation && (
         <Marker
           position={selectedLocation}
@@ -99,6 +100,33 @@ function GameMap({ center, selectedLocation, onMapClick, disabled }) {
             strokeWeight: 2,
             scale: 1.5,
             anchor: new window.google.maps.Point(0, -30)
+          }}
+          label={showResults ? {
+            text: 'Your Guess',
+            color: '#FF0000',
+            fontWeight: 'bold',
+            fontSize: '12px'
+          } : undefined}
+        />
+      )}
+      
+      {/* Actual location marker (green pin) */}
+      {actualLocation && showResults && (
+        <Marker
+          position={actualLocation}
+          icon={{
+            path: window.google.maps.SymbolPath.CIRCLE,
+            fillColor: '#4CAF50',
+            fillOpacity: 1,
+            strokeColor: '#FFFFFF',
+            strokeWeight: 3,
+            scale: 10
+          }}
+          label={{
+            text: 'Actual Location',
+            color: '#4CAF50',
+            fontWeight: 'bold',
+            fontSize: '12px'
           }}
         />
       )}

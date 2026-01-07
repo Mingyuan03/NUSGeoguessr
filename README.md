@@ -70,6 +70,8 @@ npm start
 
 The application will be available at `http://localhost:3000` (or the port specified by your build tool).
 
+**To stop the development server**: Press `Ctrl+C` in the terminal where `npm start` is running. This will stop the server and return you to the command prompt. Simply closing the browser tab will NOT stop the server.
+
 ### Building for Production
 
 ```bash
@@ -108,7 +110,32 @@ NUSGeoguessr/
 5. **Click to Select**: Click on the map to place your guess (red arrow marker)
 6. **Confirm**: Click "Confirm" to submit your guess
 7. **Score**: Points are awarded based on distance from the actual location (linear algorithm, max 5000 points)
-8. **Repeat**: Return to dashboard with updated cumulative score
+8. **Score Display**: After confirming, your score gain is displayed in the upper-right corner table
+9. **Repeat**: Return to dashboard with updated cumulative score
+
+## 🔒 Security & Dependencies
+
+### npm audit warnings
+
+When running `npm audit`, you may see security warnings. Here's what to know:
+
+**Current Status**: The warnings are in **development dependencies** (not production code), specifically in `react-scripts` and its transitive dependencies:
+- `nth-check` (high severity) - Used by CSS processing tools
+- `postcss` (moderate severity) - Used by CSS post-processing
+- `webpack-dev-server` (moderate severity) - Development server only
+
+**Risk Assessment**:
+- **Low risk for production**: These vulnerabilities only affect the development environment
+- **No user data at risk**: The issues don't expose user data or compromise the built application
+- **Development-only exposure**: Only affects developers running `npm start` locally
+
+**Recommended Actions**:
+1. **For now**: No immediate action required. These are development dependencies and don't affect the production build
+2. **Monitor**: Keep `react-scripts` updated when new versions are released
+3. **Future consideration**: Consider migrating to Vite (faster, more modern) when ready for a major update
+4. **Do NOT run**: `npm audit fix --force` - This will break your project by installing incompatible versions
+
+**When to worry**: Only if you're running the dev server on a public network or if vulnerabilities are found in production dependencies.
 
 ## 🤝 Contributing
 

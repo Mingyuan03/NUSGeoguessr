@@ -1,0 +1,69 @@
+.score-history {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  min-width: 200px;
+  z-index: 1000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.score-history-header h3 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 600;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 8px;
+}
+
+.score-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.score-history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.score-history-item:last-child {
+  border-bottom: none;
+}
+
+.score-history-round {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.score-history-points {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #667eea;
+}
+
+@media (max-width: 768px) {
+  .score-history {
+    top: 10px;
+    right: 10px;
+    min-width: 150px;
+    padding: 10px;
+  }
+  
+  .score-history-header h3 {
+    font-size: 0.9rem;
+  }
+  
+  .score-history-round,
+  .score-history-points {
+    font-size: 0.85rem;
+  }
+}
