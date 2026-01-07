@@ -1,0 +1,38 @@
+.timer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid var(--timer-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: conic-gradient(
+    var(--timer-color) 0% calc(var(--progress) * 1%),
+    #e0e0e0 calc(var(--progress) * 1%) 100%
+  );
+  position: relative;
+}
+
+.timer-circle::before {
+  content: '';
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: white;
+}
+
+.timer-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--timer-color);
+  z-index: 1;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}

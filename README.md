@@ -16,15 +16,16 @@ NUSGeoguessr challenges players to identify their location on the NUS campus usi
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React
-- **Build Tool**: (To be determined - Vite/Create React App/etc.)
-- **Styling**: (To be determined)
-- **Maps**: (To be determined - Google Maps API/Mapbox/etc.)
+- **Frontend**: React 18.2.0
+- **Build Tool**: Create React App (react-scripts 5.0.1)
+- **Styling**: CSS
+- **Maps**: Google Maps API (@react-google-maps/api)
 
 ## 📋 Prerequisites
 
 - Node.js (v16 or higher recommended)
 - npm or yarn package manager
+- Google Maps API key (see setup instructions below)
 
 ## 🏃 Getting Started
 
@@ -40,6 +41,25 @@ cd NUSGeoguessr
 # Install dependencies
 npm install
 ```
+
+### Google Maps API Setup
+
+1. **Get a Google Maps API Key**:
+   - Go to [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the "Maps JavaScript API"
+   - Create credentials (API Key)
+   - (Optional) Restrict the API key to your domain for security
+
+2. **Configure the API Key**:
+   - Create a `.env` file in the root directory
+   - Add your API key:
+     ```
+     REACT_APP_GOOGLE_MAPS_API_KEY=your_api_key_here
+     ```
+   - Restart the development server after adding the key
+
+**Note**: The app will still run without an API key, but the map will not load. You'll see a loading message instead.
 
 ### Development
 
@@ -62,16 +82,33 @@ npm run build
 ```
 NUSGeoguessr/
 ├── public/
-│   └── (static assets)
+│   ├── index.html
+│   └── manifest.json
 ├── src/
+│   ├── assets/
+│   │   └── dummy-location.svg    # Placeholder location images
 │   ├── components/
-│   ├── pages/
-│   ├── utils/
-│   ├── hooks/
-│   └── App.js
+│   │   ├── Dashboard.js           # Main dashboard with score and start button
+│   │   ├── Game.js                # Main game component
+│   │   ├── GameMap.js             # Google Maps integration
+│   │   ├── Countdown.js           # 3-second countdown
+│   │   └── Timer.js               # 20-second game timer
+│   ├── App.js                      # Main app component
+│   └── index.js                   # Entry point
 ├── package.json
 └── README.md
 ```
+
+## 🎮 How to Play
+
+1. **Start the Game**: Click the "Start" button on the dashboard
+2. **Countdown**: Wait for the 3-second countdown
+3. **View Location**: An image of an NUS location is displayed
+4. **Find Location**: Use the draggable Google Map (restricted to Kent Ridge campus) to find the location
+5. **Click to Select**: Click on the map to place your guess (red arrow marker)
+6. **Confirm**: Click "Confirm" to submit your guess
+7. **Score**: Points are awarded based on distance from the actual location (linear algorithm, max 5000 points)
+8. **Repeat**: Return to dashboard with updated cumulative score
 
 ## 🤝 Contributing
 
