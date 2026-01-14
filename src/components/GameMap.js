@@ -49,6 +49,8 @@ function GameMap({ center, selectedLocation, actualLocation, onMapClick, disable
     }
   };
 
+  const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
   if (!isLoaded) {
     return (
       <div style={{ 
@@ -58,13 +60,41 @@ function GameMap({ center, selectedLocation, actualLocation, onMapClick, disable
         flexDirection: 'column',
         alignItems: 'center', 
         justifyContent: 'center',
-        background: '#f0f0f0'
+        background: '#f0f0f0',
+        padding: '20px'
       }}>
-        <p>Loading map...</p>
-        {!process.env.REACT_APP_GOOGLE_MAPS_API_KEY && (
-          <p style={{ fontSize: '0.8rem', marginTop: '10px', color: '#666', textAlign: 'center', padding: '0 20px' }}>
-            Note: Google Maps API key required. See README for setup instructions.
-          </p>
+        {!apiKey ? (
+          <>
+            <p style={{ fontSize: '1.2rem', fontWeight: '600', color: '#d32f2f', marginBottom: '10px' }}>
+              Google Maps API Key Required
+            </p>
+            <p style={{ fontSize: '0.9rem', color: '#666', textAlign: 'center', marginBottom: '20px' }}>
+              To use the map feature, you need to set up a Google Maps API key.
+            </p>
+            <div style={{ 
+              background: '#fff3cd', 
+              border: '1px solid #ffc107', 
+              borderRadius: '8px', 
+              padding: '15px', 
+              maxWidth: '500px',
+              fontSize: '0.85rem',
+              color: '#856404'
+            }}>
+              <p style={{ margin: '0 0 10px 0', fontWeight: '600' }}>Quick Setup:</p>
+              <ol style={{ margin: '0', paddingLeft: '20px', textAlign: 'left' }}>
+                <li>Create a <code style={{ background: '#f0f0f0', padding: '2px 4px', borderRadius: '3px' }}>.env</code> file in the project root</li>
+                <li>Add: <code style={{ background: '#f0f0f0', padding: '2px 4px', borderRadius: '3px' }}>REACT_APP_GOOGLE_MAPS_API_KEY=your_key_here</code></li>
+                <li>Get your API key from <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#1976d2' }}>Google Cloud Console</a></li>
+                <li>Enable "Maps JavaScript API" in your project</li>
+                <li>Restart the dev server (npm start)</li>
+              </ol>
+              <p style={{ margin: '10px 0 0 0', fontSize: '0.8rem' }}>
+                See README.md for detailed instructions.
+              </p>
+            </div>
+          </>
+        ) : (
+          <p>Loading map...</p>
         )}
       </div>
     );

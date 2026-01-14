@@ -44,22 +44,55 @@ npm install
 
 ### Google Maps API Setup
 
+**Important**: The map feature requires a Google Maps API key. Without it, you'll see a warning: "This page can't load Google Maps correctly."
+
+#### Step-by-Step Setup:
+
 1. **Get a Google Maps API Key**:
    - Go to [Google Cloud Console](https://console.cloud.google.com/)
-   - Create a new project or select an existing one
-   - Enable the "Maps JavaScript API"
-   - Create credentials (API Key)
-   - (Optional) Restrict the API key to your domain for security
+   - Sign in with your Google account
+   - Click "Create Project" or select an existing project
+   - Wait for project creation (may take a minute)
 
-2. **Configure the API Key**:
-   - Create a `.env` file in the root directory
-   - Add your API key:
-     ```
-     REACT_APP_GOOGLE_MAPS_API_KEY=your_api_key_here
-     ```
-   - Restart the development server after adding the key
+2. **Enable the Maps JavaScript API**:
+   - In the project dashboard, go to "APIs & Services" > "Library"
+   - Search for "Maps JavaScript API"
+   - Click on it and press "Enable"
 
-**Note**: The app will still run without an API key, but the map will not load. You'll see a loading message instead.
+3. **Create an API Key**:
+   - Go to "APIs & Services" > "Credentials"
+   - Click "Create Credentials" > "API Key"
+   - Copy the generated API key
+   - (Optional but recommended) Click "Restrict Key" to limit usage:
+     - Under "Application restrictions", select "HTTP referrers"
+     - Add `localhost:3000/*` for development
+     - Add your production domain for deployment
+
+4. **Configure the API Key in Your Project**:
+   - Create a `.env` file in the **root directory** (same level as `package.json`)
+   - Add the following line (replace with your actual key):
+     ```
+     REACT_APP_GOOGLE_MAPS_API_KEY=AIzaSyYourActualKeyHere
+     ```
+   - **Important**: 
+     - No spaces around the `=` sign
+     - No quotes around the key
+     - The file must be named exactly `.env` (starts with a dot)
+
+5. **Restart the Development Server**:
+   - Stop the current server (Ctrl+C)
+   - Run `npm start` again
+   - The map should now load correctly
+
+**Troubleshooting**:
+- If you still see the warning, check:
+  - The `.env` file is in the root directory (not in `src/`)
+  - The variable name is exactly `REACT_APP_GOOGLE_MAPS_API_KEY`
+  - You restarted the dev server after creating/editing `.env`
+  - The API key is valid and has "Maps JavaScript API" enabled
+  - Check browser console for specific error messages
+
+**Note**: The `.env` file is gitignored and won't be committed to version control (this is intentional for security).
 
 ### Development
 
@@ -94,7 +127,8 @@ NUSGeoguessr/
 │   │   ├── Game.js                # Main game component
 │   │   ├── GameMap.js             # Google Maps integration
 │   │   ├── Countdown.js           # 3-second countdown
-│   │   └── Timer.js               # 20-second game timer
+│   │   ├── Timer.js               # 20-second game timer
+│   │   └── ScoreHistory.js        # Upper-right “recent score gains” widget (last 5)
 │   ├── App.js                      # Main app component
 │   └── index.js                   # Entry point
 ├── package.json
@@ -108,10 +142,14 @@ NUSGeoguessr/
 3. **View Location**: An image of an NUS location is displayed
 4. **Find Location**: Use the draggable Google Map (restricted to Kent Ridge campus) to find the location
 5. **Click to Select**: Click on the map to place your guess (red arrow marker)
-6. **Confirm**: Click "Confirm" to submit your guess
-7. **Score**: Points are awarded based on distance from the actual location (linear algorithm, max 5000 points)
-8. **Score Display**: After confirming, your score gain is displayed in the upper-right corner table
-9. **Repeat**: Return to dashboard with updated cumulative score
+6. **Confirm (optional)**: Click "Confirm" to submit your guess
+7. **Auto-submit at 0s**: If time reaches **0**, the round **ends automatically**. If you didn’t make a guess, you receive **0 points**.
+8. **Results**: After confirming or time running out, you will see:
+   - Your score for the round
+   - Your guess marker (if any)
+   - The actual location marker
+9. **Score Display**: During gameplay, recent score gains are shown in the **upper-right** (last 5 rounds)
+10. **Repeat**: Return to dashboard with updated cumulative score
 
 ## 🔒 Security & Dependencies
 
